@@ -1,0 +1,61 @@
+{
+  "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+  "entryPoints": [
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "ead0b639-2255-4089-bb3d-46f8bee2dd93",
+      "type": "process",
+      "input": {
+        "type": "object",
+        "properties": {
+          "in_OrchestratorQueueName": {
+            "type": "string",
+            "description": "Allows the Orchestrator queue name to be passed as an argument, instead of only being defined in the configuration file."
+          },
+          "in_OrchestratorQueueFolder": {
+            "type": "string",
+            "description": "Allows the Orchestrator folder name where the queue is created to be passed as an argument, instead of only being defined in the configuration file."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "filePath": "Workflows\\Dispatcher.xaml",
+      "uniqueId": "8b9d1f0c-4e60-4f36-9ef8-33e3aa7f61ef",
+      "type": "process",
+      "input": {
+        "type": "object",
+        "properties": {
+          "in_OrchestratorQueueName": {
+            "type": "string"
+          },
+          "in_OrchestratorQueueFolder": {
+            "type": "string"
+          },
+          "in_SiteBaseUrl": {
+            "type": "string"
+          },
+          "in_RelativeFolderPath": {
+            "type": "string"
+          },
+          "in_FileName": {
+            "type": "string"
+          },
+          "in_LocalOutputFolder": {
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "out_LocalFilePath": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}

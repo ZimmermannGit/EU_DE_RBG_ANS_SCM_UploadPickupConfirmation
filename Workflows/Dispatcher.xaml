@@ -1,0 +1,571 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="DownloadFromSharePoint" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mg="clr-namespace:Microsoft.Graph;assembly=Microsoft.Graph" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uma="clr-namespace:UiPath.MicrosoftOffice365.Activities;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umaf="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umafe="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files.Enums;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umafm="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files.Models;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umfm="clr-namespace:UiPath.MicrosoftOffice365.Files.Models;assembly=UiPath.MicrosoftOffice365" xmlns:umsm="clr-namespace:UiPath.MicrosoftOffice365.Sharepoint.Models;assembly=UiPath.MicrosoftOffice365" xmlns:umsmc="clr-namespace:UiPath.MicrosoftOffice365.Sharepoint.Models.Columns;assembly=UiPath.MicrosoftOffice365" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_OrchestratorQueueName" Type="InArgument(x:String)" />
+    <x:Property Name="in_OrchestratorQueueFolder" Type="InArgument(x:String)" />
+    <x:Property Name="in_SiteBaseUrl" Type="InArgument(x:String)" />
+    <x:Property Name="in_RelativeFolderPath" Type="InArgument(x:String)" />
+    <x:Property Name="in_FileName" Type="InArgument(x:String)" />
+    <x:Property Name="in_LocalOutputFolder" Type="InArgument(x:String)" />
+    <x:Property Name="out_LocalFilePath" Type="OutArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>DownloadFromSharePoint_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.Graph</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.IntelligentOCR.StudioWeb.Activities.PDF</x:String>
+      <x:String>UiPath.IntelligentOCR.StudioWeb.Activities.PDF.ExtractPDFPageRange</x:String>
+      <x:String>UiPath.MicrosoftOffice365</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Contracts</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Files</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Files.Contracts</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Files.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Files.Filters</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Files.Models</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Files.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Files.Models</x:String>
+      <x:String>UiPath.Persistence.Activities</x:String>
+      <x:String>UiPath.Persistence.Activities.Queue</x:String>
+      <x:String>UiPath.Platform</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Shared.Activities.Business</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
+      <x:String>UiPath.Shared.Activities.Utils</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Enums</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Mail</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Models</x:String>
+      <x:String>UiPath.Shared.Services.Graph.Mail.Models</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.General.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.General</x:String>
+      <x:String>System.Numerics</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Sharepoint.Filters</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Sharepoint.Contracts</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Sharepoint.Models</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Sharepoint.Models.Filters</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Sharepoint.Contracts.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Filters</x:String>
+      <x:String>UiPath.Web.Activities.JSON.Models</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Collections.Specialized</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Sdk.Activities</x:String>
+      <x:String>UiPath.Sdk.Activities.DependencyInjection.Contracts</x:String>
+      <x:String>UiPath.Sdk.Activities.DependencyInjection</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.Graph</AssemblyReference>
+      <AssemblyReference>Microsoft.Graph.Core</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>netstandard</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Net</AssemblyReference>
+      <AssemblyReference>System.Net.WebClient</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.MetadataLoadContext</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.CodedWorkflows</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR.StudioWeb.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftOffice365</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftOffice365.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Persistence.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Collections.Specialized</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>System.CodeDom</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence DisplayName="Download From SharePoint" sap:VirtualizedContainerService.HintSize="937,3485" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="umfm:O365DriveRemoteItem" Name="DCurrentItem" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Config" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="InitAllSettings - Invoke Workflow File (Framework\InitAllSettings.xaml)" sap:VirtualizedContainerService.HintSize="540,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">Data\Config.xlsx</InArgument>
+        <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">[New String() {"Settings","Constants"}]</InArgument>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">[Config]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:LogMessage DisplayName="Log Download Start" sap:VirtualizedContainerService.HintSize="540,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start Download for Queue Items&quot;]" />
+    <uma:Office365ApplicationScope ApplicationSecret="{x:Null}" BrowserItemFriendlyName="{x:Null}" BrowserItemFullPath="{x:Null}" BrowserItemId="{x:Null}" BrowserParentItemId="{x:Null}" BrowserRuntimeItemFriendlyName="{x:Null}" BrowserRuntimeItemFullPath="{x:Null}" BrowserRuntimeItemId="{x:Null}" BrowserRuntimeParentItemId="{x:Null}" CertificateAsBase64="{x:Null}" CertificatePassword="{x:Null}" ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" Connector="{x:Null}" ContinueOnError="{x:Null}" ImpersonatedUserEmailAddress="{x:Null}" ManualRuntimeItemFullPath="{x:Null}" Password="{x:Null}" SecureApplicationSecret="{x:Null}" SecurePassword="{x:Null}" Timeout="{x:Null}" Username="{x:Null}" Account="uidt0706@automotive-wan.com" ApplicationId="7e5fd973-0a88-4a06-bdd3-bc2bd2e31151" AuthenticationType="InteractiveToken" ConfigLocation="PropertiesPanel" DataStoreLocation="ORCHESTRATOR" DisplayName="Microsoft 365 Scope" EmailAddress="uidt0706@automotive-wan.com" Environment="Global" Folder="SCM" sap:VirtualizedContainerService.HintSize="540,2944" sap2010:WorkflowViewState.IdRef="Office365ApplicationScope_3" OAuthApplication="Custom" RuntimeItemInputMode="Browse" TenantId="3bd97919-57c3-48d3-9e9a-8e4c01614a8f" UseConnectionService="False">
+      <uma:Office365ApplicationScope.AuthenticationScopes>
+        <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+          <InArgument x:TypeArguments="x:String">Sites.Read.All</InArgument>
+        </scg:List>
+      </uma:Office365ApplicationScope.AuthenticationScopes>
+      <uma:Office365ApplicationScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ParentScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="538,2708" sap2010:WorkflowViewState.IdRef="Sequence_7">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="responseContentTemp" />
+              <Variable x:TypeArguments="x:Int32" Name="responseStatusTemp" />
+              <Variable x:TypeArguments="mg:DriveItem" Name="folderItem" />
+              <Variable x:TypeArguments="njl:JObject" Name="jsonTemp" />
+              <Variable x:TypeArguments="umfm:O365DriveRemoteItem[]" Name="filesList" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <umaf:GetItem ContinueOnError="{x:Null}" DriveMetadata="{x:Null}" DriveName="{x:Null}" ItemFriendlyName="{x:Null}" ItemId="{x:Null}" SiteUrl="{x:Null}" AuthScopesInvalid="False" DisplayName="Get File or Folder" sap:VirtualizedContainerService.HintSize="504,139" sap2010:WorkflowViewState.IdRef="GetItem_1" Item="[folderItem]" ItemSelectionMode="ItemUrl" ItemUrl="https://aumovio-my.sharepoint.com/my?id=%2Fpersonal%2Fuidt0706%5Fautomotive%2Dwan%5Fcom%2FDocuments%2F03%5FControlling%20Container%20Supplier%20%2B%20Customer%2FZZ%5Fweitere%5FThemen%2FRPA%2FAU%5FEU%5FDE%5FSCM%5FUPLOAD%5FPICKUP%5FCONFIRMATION%2F01%5FNew" />
+            <umaf:GetFileListConnections BrowserParentItemId="{x:Null}" ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" ContinueOnError="{x:Null}" DynamicMetadataFilter="{x:Null}" Filter="{x:Null}" FreeTextFilter="{x:Null}" ItemIdBackup="{x:Reference __ReferenceID0}" ManualEntryDriveName="{x:Null}" ManualEntryItemFullPath="{x:Null}" ManualEntryItemId="{x:Null}" ManualEntryItemRelativePath="{x:Null}" ManualEntryItemUrl="{x:Null}" ManualEntrySiteUrl="{x:Null}" MetadataFilter="{x:Null}" QueryFilter="{x:Null}" SharepointLibraryItemFriendlyName="{x:Null}" SharepointListId="{x:Null}" SharepointSiteUrl="{x:Null}" SimpleSearch="{x:Null}" AuthScopesInvalid="False" BrowserDriveId="b!ezEvtoZGWUWwI34qNzAUvpN2s4EmKeJPkXVh_kTZ7lIq9lbEJy_fRqmRrfNOybMP" BrowserDriveName="OneDrive - aumovio" BrowserItemFriendlyName="01_New" BrowserItemId="017JD3NEIVNL2HHYYDFJEKXGQIYKLNFVWC" BrowserSiteUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/01_New" BrowserSpecificUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/01_New" DisplayName="Get File or Folder List" sap:VirtualizedContainerService.HintSize="504,123" sap2010:WorkflowViewState.IdRef="GetFileListConnections_1" IncludeSubfolders="False" ItemSelectionMode="Browse" MaxResults="200" Result="[filesList]" SearchMode="UseSimple" SortOptions="Ascending" TrimDuplicates="False" UseConnectionService="False" WhatToReturn="Files" WorkingWithDocumentLibrary="False">
+              <umaf:GetFileListConnections.AllColumns>
+                <x:Array Type="umsm:Office365SharepointListColumnSlim">
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Name" Guid="8553196d-ec8d-4564-9861-3dbe931050c8" Hidden="False" IsRequired="True" Name="FileLeafRef" ReadOnly="False" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Compliance Asset Id" Guid="3a6b296c-3f50-445c-a13f-9c679ea9dda3" Hidden="False" IsRequired="False" Name="ComplianceAssetId" ReadOnly="True" Type="Text">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Title" Guid="fa564e0f-0c70-4ab9-b863-0177e6ddd247" Hidden="False" IsRequired="False" Name="Title" ReadOnly="False" Type="Text">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Sharing" Guid="4b84094e-9d33-44b2-9f92-88421d1ad098" Hidden="False" IsRequired="False" Name="SharedWith" ReadOnly="True" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Is My Documents" Guid="8100a343-029a-470a-ae87-27e8d038d781" Hidden="False" IsRequired="False" Name="IsMyDocuments" ReadOnly="False" Type="Boolean">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" DisplayName="Shared With Internal" Guid="6898f701-4b04-49fc-b1f9-77392f75ddbc" Hidden="False" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="SharedWithInternal" ReadOnly="False" Type="PersonOrGroup">
+                    <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                      <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="True" />
+                    </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" DisplayName="Shared With" Guid="ef991a83-108d-4407-8ee5-ccc0c3d836b9" Hidden="False" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="SharedWithUsers" ReadOnly="True" Type="PersonOrGroup">
+                    <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                      <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="True" />
+                    </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Shared With Details" Guid="d3c9caf7-044c-4c71-ae64-092981e54b33" Hidden="False" IsRequired="False" Name="SharedWithDetails" ReadOnly="True" Type="Text">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Tags" Guid="d1cff744-ba61-4189-94d6-97d0a9eb4f6a" Hidden="False" IsRequired="False" Name="MediaServiceAutoTags" ReadOnly="True" Type="Text">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Extracted Text" Guid="67aff0cf-8e19-43f2-9987-be89075e1467" Hidden="False" IsRequired="False" Name="MediaServiceOCR" ReadOnly="True" Type="Text">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Location" Guid="5e0382d1-eb43-4590-a609-575845fa9af9" Hidden="False" IsRequired="False" Name="MediaServiceLocation" ReadOnly="True" Type="Text">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Modified" Guid="28cf69c5-fa48-462a-b5cd-27b6f9d2bd5f" Hidden="False" IsRequired="False" Name="Modified" ReadOnly="True" Type="DateTime">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ID" Guid="1d22ea11-1e32-424e-89ab-9fedbadb6ce1" Hidden="False" IsRequired="False" Name="ID" ReadOnly="True" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Content Type" Guid="c042a256-787d-4a6f-8a8a-cf6ab767f12d" Hidden="False" IsRequired="False" Name="ContentType" ReadOnly="False" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Created" Guid="8c06beca-0777-48f7-91c7-6da68bc07b69" Hidden="False" IsRequired="False" Name="Created" ReadOnly="True" Type="DateTime">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" DisplayName="Created By" Guid="1df5e554-ec7e-46a6-901d-d85a3881cb18" Hidden="False" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="Author" ReadOnly="True" Type="PersonOrGroup">
+                    <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                      <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" DisplayName="Modified By" Guid="d31655d1-1d5b-4511-95a1-7a09e9b75bf2" Hidden="False" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="Editor" ReadOnly="True" Type="PersonOrGroup">
+                    <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                      <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" DisplayName="Checked Out To" Guid="3881510a-4e4a-4ee8-b102-8ee8e2d0dd4b" Hidden="False" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="CheckoutUser" ReadOnly="True" Type="PersonOrGroup">
+                    <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                      <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Name" Guid="9d30f126-ba48-446b-b8f9-83745f322ebe" Hidden="False" IsRequired="False" Name="LinkFilenameNoMenu" ReadOnly="True" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Name" Guid="5cc6dc79-3710-4374-b433-61cb4a686c12" Hidden="False" IsRequired="False" Name="LinkFilename" ReadOnly="True" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Type" Guid="081c6e4c-5c14-4f20-b23e-1a71ceb6a67c" Hidden="False" IsRequired="False" Name="DocIcon" ReadOnly="True" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="File Size" Guid="78a07ba4-bda8-4357-9e0f-580d64487583" Hidden="False" IsRequired="False" Name="FileSizeDisplay" ReadOnly="True" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Item Child Count" Guid="b824e17e-a1b3-426e-aecf-f0184d900485" Hidden="False" IsRequired="False" LookupListId="" Name="ItemChildCount" ReadOnly="True" Type="Lookup">
+                    <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                      <umsmc:LookupColumnMetadata ColumnName="ItemChildCount" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Folder Child Count" Guid="960ff01f-2b6d-4f1b-9c3f-e19ad8927341" Hidden="False" IsRequired="False" LookupListId="" Name="FolderChildCount" ReadOnly="True" Type="Lookup">
+                    <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                      <umsmc:LookupColumnMetadata ColumnName="FolderChildCount" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="App Created By" Guid="6bfaba20-36bf-44b5-a1b2-eb6346d49716" Hidden="False" IsRequired="False" LookupListId="AppPrincipals" Name="AppAuthor" ReadOnly="True" Type="Lookup">
+                    <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                      <umsmc:LookupColumnMetadata ColumnName="Title" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="App Modified By" Guid="e08400f3-c779-4ed2-a18c-ab7f34caa318" Hidden="False" IsRequired="False" LookupListId="AppPrincipals" Name="AppEditor" ReadOnly="True" Type="Lookup">
+                    <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                      <umsmc:LookupColumnMetadata ColumnName="Title" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Edit" Guid="503f1caa-358e-4918-9094-4a2cdc4bc034" Hidden="False" IsRequired="False" Name="Edit" ReadOnly="True" Type="DefaultValue">
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Source Version (Converted Document)" Guid="bc1a8efb-0f4c-49f8-a38f-7fe22af3d3e0" Hidden="False" IsRequired="False" LookupListId="" Name="ParentVersionString" ReadOnly="True" Type="Lookup">
+                    <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                      <umsmc:LookupColumnMetadata ColumnName="ParentVersionString" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                  <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" ColumnGroup="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Source Name (Converted Document)" Guid="774eab3a-855f-4a34-99da-69dc21043bec" Hidden="False" IsRequired="False" LookupListId="" Name="ParentLeafName" ReadOnly="True" Type="Lookup">
+                    <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                      <umsmc:LookupColumnMetadata ColumnName="ParentLeafName" MultiSelect="False" />
+                    </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsm:Office365SharepointListColumnSlim.Sample>
+                      <umsm:ColumnSample Value="{x:Null}" />
+                    </umsm:Office365SharepointListColumnSlim.Sample>
+                  </umsm:Office365SharepointListColumnSlim>
+                </x:Array>
+              </umaf:GetFileListConnections.AllColumns>
+              <umaf:GetFileListConnections.DriveItemArgument>
+                <umafm:DriveItemArgument BrowserParentDriveId="{x:Null}" BrowserParentDriveName="{x:Null}" BrowserParentItemFriendlyName="{x:Null}" BrowserParentItemId="{x:Null}" BrowserParentPath="{x:Null}" ConnectionDescriptor="{x:Null}" Item="{x:Null}" ManualEntryDriveName="{x:Null}" ManualEntryItemFullPath="{x:Null}" ManualEntryItemId="{x:Null}" ManualEntryItemRelativePath="{x:Null}" ManualEntryItemUrl="{x:Null}" ManualEntrySiteUrl="{x:Null}" ReferenceId="{x:Null}" BrowserDriveId="b!ezEvtoZGWUWwI34qNzAUvpN2s4EmKeJPkXVh_kTZ7lIq9lbEJy_fRqmRrfNOybMP" BrowserDriveName="OneDrive - aumovio" BrowserItemFriendlyName="01_New" BrowserItemId="017JD3NEIVNL2HHYYDFJEKXGQIYKLNFVWC" BrowserSiteUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/01_New" BrowserSpecificUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/01_New" ConnectionKey="eyJBY2NvdW50IjoidWlkdDA3MDZAYXV0b21vdGl2ZS13YW4uY29tIiwiT0F1dGhBcHBEYXRhIjp7IkFwcGxpY2F0aW9uSWQiOiI3ZTVmZDk3My0wYTg4LTRhMDYtYmRkMy1iYzJiZDJlMzExNTEiLCJUZW5hbnRJZCI6IjNiZDk3OTE5LTU3YzMtNDhkMy05ZTlhLThlNGMwMTYxNGE4ZiJ9LCJDbGllbnRTZWNyZXQiOm51bGwsIlBhc3N3b3JkIjpudWxsLCJVc2VyTmFtZSI6InVpZHQwNzA2QGF1dG9tb3RpdmUtd2FuLmNvbSIsIkNlcnRpZmljYXRlQXNCYXNlNjQiOm51bGwsIkNlcnRpZmljYXRlUGFzc3dvcmQiOm51bGwsIkVudmlyb25tZW50IjoxLCJNb2RlIjowLCJTY29wZXMiOlsiU2l0ZXMuUmVhZC5BbGwiXSwiVGltZW91dE1zIjo2MDAwMCwiVXNlQnJva2VyIjpudWxsLCJFbWFpbEFkZHJlc3MiOiJ1aWR0MDcwNkBhdXRvbW90aXZlLXdhbi5jb20iLCJDb25uZWN0aW9uU2VydmljZURhdGEiOnsiQ29ubmVjdGlvbkFjY291bnROYW1lIjpudWxsLCJDb25uZWN0aW9uSWQiOm51bGwsIkNvbm5lY3RvciI6bnVsbH0sIlN0b3JlS2V5IjoiT1JDSEVTVFJBVE9SOlNDTVxcbWljcm9zb2Z0MzY1X3Njb3Blc19vcmNoZXN0cmF0b3Jfc3RvcmFnZV90b2tlbnMiLCJTdG9yYWdlIjp7IkZpbGVQYXRoIjoiU0NNXFxtaWNyb3NvZnQzNjVfc2NvcGVzX29yY2hlc3RyYXRvcl9zdG9yYWdlX3Rva2VucyIsIkxvY2F0aW9uIjoxfX0=" FullPathHint="One Drive/03_Controlling Container Supplier + Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/01_New" ItemSelectionMode="Browse" ParentFullPathHint="">
+                  <umafm:DriveItemArgument.ItemIdBackup>
+                    <usau:BackupSlot x:TypeArguments="umafe:EDriveItemMode" x:Name="__ReferenceID0" StoredValue="Browse">
+                      <usau:BackupSlot.BackupValues>
+                        <scg:List x:TypeArguments="x:Object" x:Key="Browse" Capacity="6">
+                          <InArgument x:TypeArguments="x:String" />
+                          <InArgument x:TypeArguments="x:String" />
+                          <InArgument x:TypeArguments="x:String" />
+                          <InArgument x:TypeArguments="x:String" />
+                          <InArgument x:TypeArguments="x:String" />
+                          <InArgument x:TypeArguments="x:String" />
+                        </scg:List>
+                        <scg:List x:TypeArguments="x:Object" x:Key="UseExisting" Capacity="1">
+                          <x:Null />
+                        </scg:List>
+                      </usau:BackupSlot.BackupValues>
+                    </usau:BackupSlot>
+                  </umafm:DriveItemArgument.ItemIdBackup>
+                </umafm:DriveItemArgument>
+              </umaf:GetFileListConnections.DriveItemArgument>
+              <umaf:GetFileListConnections.FilterSelectionBackup>
+                <usau:BackupSlot x:TypeArguments="umafe:SearchSelectionMode" StoredValue="UseSimple">
+                  <usau:BackupSlot.BackupValues>
+                    <scg:Dictionary x:TypeArguments="umafe:SearchSelectionMode, scg:List(x:Object)" />
+                  </usau:BackupSlot.BackupValues>
+                </usau:BackupSlot>
+              </umaf:GetFileListConnections.FilterSelectionBackup>
+            </umaf:GetFileListConnections>
+            <ui:ForEach x:TypeArguments="umfm:O365DriveRemoteItem" CurrentIndex="{x:Null}" DisplayName="For Each currentO365DriveRemoteItem" sap:VirtualizedContainerService.HintSize="504,2386" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[filesList]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="umfm:O365DriveRemoteItem">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="umfm:O365DriveRemoteItem" Name="currentO365DriveRemoteItem" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="502,2264" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="468,1647" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                      <TryCatch.Try>
+                        <Sequence DisplayName="Try" sap:VirtualizedContainerService.HintSize="466,979" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:LogMessage DisplayName="Log Message - Orchestrator Folder" sap:VirtualizedContainerService.HintSize="432,175" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Queue Folder = &quot; + Config(&quot;OrchestratorQueueFolder&quot;).ToString]" />
+                          <ui:LogMessage DisplayName="Log Message - Orchestrator Queue" sap:VirtualizedContainerService.HintSize="432,175" sap2010:WorkflowViewState.IdRef="LogMessage_15" Level="Info" Message="[&quot;Queue Name = &quot; + Config(&quot;OrchestratorQueueName&quot;).ToString]" />
+                          <ui:AddQueueItem TimeoutMS="{x:Null}" DisplayName="Add Queue Item" FolderPath="[Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="432,228" sap2010:WorkflowViewState.IdRef="AddQueueItem_2" Priority="Normal" QueueType="[Config(&quot;OrchestratorQueueName&quot;).ToString]" Reference="[currentO365DriveRemoteItem.FullName]">
+                            <ui:AddQueueItem.ItemInformation>
+                              <InArgument x:TypeArguments="x:String" x:Key="FileName">[currentO365DriveRemoteItem.Name]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="FileId">[currentO365DriveRemoteItem.Id]</InArgument>
+                            </ui:AddQueueItem.ItemInformation>
+                          </ui:AddQueueItem>
+                          <ui:LogMessage DisplayName="Log Message - OneDrive File" sap:VirtualizedContainerService.HintSize="432,175" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[currentO365DriveRemoteItem.Name]" />
+                          <ui:LogMessage DisplayName="Log Message - OneDrive FileId" sap:VirtualizedContainerService.HintSize="432,166" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Info" Message="[currentO365DriveRemoteItem.Id]" />
+                        </Sequence>
+                      </TryCatch.Try>
+                      <TryCatch.Catches>
+                        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                          <ActivityAction x:TypeArguments="s:Exception">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="466,401" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:LogMessage DisplayName="Log Message - OneDrive File Error" sap:VirtualizedContainerService.HintSize="432,175" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Error" Message="[&quot;Error with: &quot; + currentO365DriveRemoteItem.Name + &quot; → Reason: &quot; + exception.Message]" />
+                              <ui:LogMessage DisplayName="Log Message - OneDrive FileId Error" sap:VirtualizedContainerService.HintSize="432,166" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Error" Message="[&quot;Error with: &quot; + currentO365DriveRemoteItem.Id + &quot; → Reason: &quot; + exception.Message]" />
+                            </Sequence>
+                          </ActivityAction>
+                        </Catch>
+                      </TryCatch.Catches>
+                      <TryCatch.Finally>
+                        <Sequence DisplayName="Finally" sap:VirtualizedContainerService.HintSize="466,90" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </Sequence>
+                      </TryCatch.Finally>
+                    </TryCatch>
+                    <uma:Office365ApplicationScope ApplicationSecret="{x:Null}" BrowserItemFriendlyName="{x:Null}" BrowserItemFullPath="{x:Null}" BrowserItemId="{x:Null}" BrowserParentItemId="{x:Null}" BrowserRuntimeItemFriendlyName="{x:Null}" BrowserRuntimeItemFullPath="{x:Null}" BrowserRuntimeItemId="{x:Null}" BrowserRuntimeParentItemId="{x:Null}" CertificateAsBase64="{x:Null}" CertificatePassword="{x:Null}" ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" Connector="{x:Null}" ContinueOnError="{x:Null}" ImpersonatedUserEmailAddress="{x:Null}" ManualRuntimeItemFullPath="{x:Null}" Password="{x:Null}" SecureApplicationSecret="{x:Null}" SecurePassword="{x:Null}" Timeout="{x:Null}" Username="{x:Null}" Account="uidt0706@automotive-wan.com" ApplicationId="7e5fd973-0a88-4a06-bdd3-bc2bd2e31151" AuthenticationType="InteractiveToken" ConfigLocation="PropertiesPanel" DataStoreLocation="ORCHESTRATOR" DisplayName="Microsoft 365 Scope" EmailAddress="uidt0706@automotive-wan.com" Environment="Global" Folder="SCM" sap:VirtualizedContainerService.HintSize="468,557" sap2010:WorkflowViewState.IdRef="Office365ApplicationScope_4" OAuthApplication="Custom" RuntimeItemInputMode="Browse" TenantId="3bd97919-57c3-48d3-9e9a-8e4c01614a8f" UseConnectionService="False">
+                      <uma:Office365ApplicationScope.AuthenticationScopes>
+                        <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+                          <InArgument x:TypeArguments="x:String">Sites.Read.All</InArgument>
+                        </scg:List>
+                      </uma:Office365ApplicationScope.AuthenticationScopes>
+                      <uma:Office365ApplicationScope.Body>
+                        <ActivityAction x:TypeArguments="x:Object">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="x:Object" Name="ParentScope" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,330" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <umaf:MoveItemConnections BrowserDriveName="{x:Null}" BrowserItemFriendlyName="{x:Null}" BrowserItemId="{x:Null}" BrowserParentItemId="{x:Null}" BrowserSiteUrl="{x:Null}" ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" ContinueOnError="{x:Null}" FolderIdBackup="{x:Reference __ReferenceID1}" ItemIdBackup="{x:Reference __ReferenceID2}" ManualEntryDriveName="{x:Null}" ManualEntryFolderDriveName="{x:Null}" ManualEntryFolderId="{x:Null}" ManualEntryFolderSiteUrl="{x:Null}" ManualEntryFolderUrl="{x:Null}" ManualEntryItemFullPath="{x:Null}" ManualEntryItemId="{x:Null}" ManualEntryItemRelativePath="{x:Null}" ManualEntryItemUrl="{x:Null}" ManualEntrySiteUrl="{x:Null}" Result="{x:Null}" AuthScopesInvalid="False" BrowserFolderDriveId="b!ezEvtoZGWUWwI34qNzAUvpN2s4EmKeJPkXVh_kTZ7lIq9lbEJy_fRqmRrfNOybMP" BrowserFolderDriveName="OneDrive - aumovio" BrowserFolderFriendlyName="02_Done" BrowserFolderId="017JD3NEIMINTG3337XNEKQJ35TZVGLUFC" BrowserFolderSiteUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/02_Done" ConflictResolution="[UiPath.MicrosoftOffice365.Enums.ConflictBehavior.Rename]" DisplayName="Move File or Folder" FolderSelectionMode="Browse" sap:VirtualizedContainerService.HintSize="416,270" sap2010:WorkflowViewState.IdRef="MoveItemConnections_1" Item="[currentO365DriveRemoteItem]" ItemSelectionMode="UseExisting" NewName="[String.Format(&quot;{0}_{1}{2}&quot;,&#xA;    Now.ToString(&quot;yyyy_MM_dd_HH_mm_ss&quot;),&#xA;    currentO365DriveRemoteItem.Name,&#xA;    &quot;.pdf&quot;)]" UseConnectionService="False">
+                              <umaf:MoveItemConnections.DriveItemArgument>
+                                <umafm:DriveItemArgument BrowserDriveId="{x:Null}" BrowserDriveName="{x:Null}" BrowserItemFriendlyName="{x:Null}" BrowserItemId="{x:Null}" BrowserParentDriveId="{x:Null}" BrowserParentDriveName="{x:Null}" BrowserParentItemFriendlyName="{x:Null}" BrowserParentItemId="{x:Null}" BrowserParentPath="{x:Null}" BrowserSiteUrl="{x:Null}" BrowserSpecificUrl="{x:Null}" ConnectionDescriptor="{x:Null}" ConnectionKey="{x:Null}" ManualEntryDriveName="{x:Null}" ManualEntryItemFullPath="{x:Null}" ManualEntryItemId="{x:Null}" ManualEntryItemRelativePath="{x:Null}" ManualEntryItemUrl="{x:Null}" ManualEntrySiteUrl="{x:Null}" ReferenceId="{x:Null}" FullPathHint="" Item="[currentO365DriveRemoteItem]" ItemSelectionMode="UseExisting" ParentFullPathHint="">
+                                  <umafm:DriveItemArgument.ItemIdBackup>
+                                    <usau:BackupSlot x:TypeArguments="umafe:EDriveItemMode" x:Name="__ReferenceID2" StoredValue="UseExisting">
+                                      <usau:BackupSlot.BackupValues>
+                                        <scg:List x:TypeArguments="x:Object" x:Key="Browse" Capacity="6">
+                                          <x:Null />
+                                          <x:Null />
+                                          <x:Null />
+                                          <x:Null />
+                                          <x:Null />
+                                          <x:Null />
+                                        </scg:List>
+                                      </usau:BackupSlot.BackupValues>
+                                    </usau:BackupSlot>
+                                  </umafm:DriveItemArgument.ItemIdBackup>
+                                </umafm:DriveItemArgument>
+                              </umaf:MoveItemConnections.DriveItemArgument>
+                              <umaf:MoveItemConnections.FolderArgument>
+                                <umafm:DriveItemArgument BrowserParentDriveId="{x:Null}" BrowserParentDriveName="{x:Null}" BrowserParentItemFriendlyName="{x:Null}" BrowserParentItemId="{x:Null}" BrowserParentPath="{x:Null}" ConnectionDescriptor="{x:Null}" Item="{x:Null}" ManualEntryDriveName="{x:Null}" ManualEntryItemFullPath="{x:Null}" ManualEntryItemId="{x:Null}" ManualEntryItemRelativePath="{x:Null}" ManualEntryItemUrl="{x:Null}" ManualEntrySiteUrl="{x:Null}" ReferenceId="{x:Null}" BrowserDriveId="b!ezEvtoZGWUWwI34qNzAUvpN2s4EmKeJPkXVh_kTZ7lIq9lbEJy_fRqmRrfNOybMP" BrowserDriveName="OneDrive - aumovio" BrowserItemFriendlyName="02_Done" BrowserItemId="017JD3NEIMINTG3337XNEKQJ35TZVGLUFC" BrowserSiteUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/02_Done" BrowserSpecificUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/02_Done" ConnectionKey="eyJBY2NvdW50IjoidWlkdDA3MDZAYXV0b21vdGl2ZS13YW4uY29tIiwiT0F1dGhBcHBEYXRhIjp7IkFwcGxpY2F0aW9uSWQiOiI3ZTVmZDk3My0wYTg4LTRhMDYtYmRkMy1iYzJiZDJlMzExNTEiLCJUZW5hbnRJZCI6IjNiZDk3OTE5LTU3YzMtNDhkMy05ZTlhLThlNGMwMTYxNGE4ZiJ9LCJDbGllbnRTZWNyZXQiOm51bGwsIlBhc3N3b3JkIjpudWxsLCJVc2VyTmFtZSI6InVpZHQwNzA2QGF1dG9tb3RpdmUtd2FuLmNvbSIsIkNlcnRpZmljYXRlQXNCYXNlNjQiOm51bGwsIkNlcnRpZmljYXRlUGFzc3dvcmQiOm51bGwsIkVudmlyb25tZW50IjoxLCJNb2RlIjowLCJTY29wZXMiOlsiU2l0ZXMuUmVhZC5BbGwiXSwiVGltZW91dE1zIjo2MDAwMCwiVXNlQnJva2VyIjpudWxsLCJFbWFpbEFkZHJlc3MiOiJ1aWR0MDcwNkBhdXRvbW90aXZlLXdhbi5jb20iLCJDb25uZWN0aW9uU2VydmljZURhdGEiOnsiQ29ubmVjdGlvbkFjY291bnROYW1lIjpudWxsLCJDb25uZWN0aW9uSWQiOm51bGwsIkNvbm5lY3RvciI6bnVsbH0sIlN0b3JlS2V5IjoiT1JDSEVTVFJBVE9SOlNDTVxcbWljcm9zb2Z0MzY1X3Njb3Blc19vcmNoZXN0cmF0b3Jfc3RvcmFnZV90b2tlbnMiLCJTdG9yYWdlIjp7IkZpbGVQYXRoIjoiU0NNXFxtaWNyb3NvZnQzNjVfc2NvcGVzX29yY2hlc3RyYXRvcl9zdG9yYWdlX3Rva2VucyIsIkxvY2F0aW9uIjoxfX0=" FullPathHint="One Drive/03_Controlling Container Supplier + Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/02_Done" ItemSelectionMode="Browse" ParentFullPathHint="">
+                                  <umafm:DriveItemArgument.ItemIdBackup>
+                                    <usau:BackupSlot x:TypeArguments="umafe:EDriveItemMode" x:Name="__ReferenceID1" StoredValue="Browse">
+                                      <usau:BackupSlot.BackupValues>
+                                        <scg:Dictionary x:TypeArguments="umafe:EDriveItemMode, scg:List(x:Object)" />
+                                      </usau:BackupSlot.BackupValues>
+                                    </usau:BackupSlot>
+                                  </umafm:DriveItemArgument.ItemIdBackup>
+                                </umafm:DriveItemArgument>
+                              </umaf:MoveItemConnections.FolderArgument>
+                            </umaf:MoveItemConnections>
+                          </Sequence>
+                        </ActivityAction>
+                      </uma:Office365ApplicationScope.Body>
+                      <uma:Office365ApplicationScope.RuntimeItemFullPathBackup>
+                        <usau:BackupSlot x:TypeArguments="umafe:EDriveItemMode" StoredValue="{x:Null}">
+                          <usau:BackupSlot.BackupValues>
+                            <scg:Dictionary x:TypeArguments="umafe:EDriveItemMode, scg:List(x:Object)" />
+                          </usau:BackupSlot.BackupValues>
+                        </usau:BackupSlot>
+                      </uma:Office365ApplicationScope.RuntimeItemFullPathBackup>
+                    </uma:Office365ApplicationScope>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
+            </ui:ForEach>
+          </Sequence>
+        </ActivityAction>
+      </uma:Office365ApplicationScope.Body>
+      <uma:Office365ApplicationScope.RuntimeItemFullPathBackup>
+        <usau:BackupSlot x:TypeArguments="umafe:EDriveItemMode" StoredValue="{x:Null}">
+          <usau:BackupSlot.BackupValues>
+            <scg:Dictionary x:TypeArguments="umafe:EDriveItemMode, scg:List(x:Object)" />
+          </usau:BackupSlot.BackupValues>
+        </usau:BackupSlot>
+      </uma:Office365ApplicationScope.RuntimeItemFullPathBackup>
+    </uma:Office365ApplicationScope>
+    <ui:LogMessage DisplayName="Log Download Complete" sap:VirtualizedContainerService.HintSize="540,166" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Upload Queue Items and Move File complete&quot;]" />
+  </Sequence>
+</Activity>

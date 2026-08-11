@@ -1,0 +1,6 @@
+{
+  "Name": "EU_DE_RBG_ANS_SCM_UploadPickupConfirmation",
+  "ProjectType": "Process",
+  "Description": "Automated processing of delivery note PDFs from SharePoint, splitting them into individual documents and upload the files in SAP",
+  "MainFile": "Main.xaml"
+}

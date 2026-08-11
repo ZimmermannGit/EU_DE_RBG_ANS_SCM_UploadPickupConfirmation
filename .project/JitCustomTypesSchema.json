@@ -1,0 +1,49 @@
+{
+  "exportedBy": null,
+  "bundleHash": null,
+  "version": "1.0.0.0",
+  "jitAssemblyCompilerCommands": [
+    {
+      "providerName": "TypedDataTable",
+      "typedDataTableDto": {
+        "id": 1,
+        "idRef": "UpdateFileFolderMetadataConnections`1_1",
+        "hash": "UpdateFileFolderMetadataConnections`1_1|DataRow|WkAUj6rh2Tr1psqkjBELyiurz47QkkATbEtdmmGdqQM",
+        "dataType": "System.Data.DataRow, System.Data.Common",
+        "columns": [
+          {
+            "columnName": "IsMyDocuments",
+            "dataType": "System.Boolean, System.Private.CoreLib",
+            "name": "Is My Documents",
+            "category": "Simplified"
+          },
+          {
+            "columnName": "SharedWithInternal",
+            "dataType": "System.Object[], System.Private.CoreLib",
+            "name": "Shared With Internal",
+            "category": "Simplified"
+          },
+          {
+            "columnName": "Title",
+            "dataType": "System.String, System.Private.CoreLib",
+            "name": "Title",
+            "category": "Simplified"
+          },
+          {
+            "columnName": "ID",
+            "dataType": "System.Object, System.Private.CoreLib",
+            "name": "ID",
+            "category": "Simplified"
+          }
+        ],
+        "rowExtensionProperties": [],
+        "nestedRowExtensionProperties": []
+      },
+      "entityAssemblyKey": {
+        "name": "Studio.Generated.TypedDataRow1",
+        "hash": "UpdateFileFolderMetadataConnections`1_1|DataRow|odSFkEfc2V5cIH6f3Jh7jKTZnZPePFrWFPh6u8CUeA",
+        "assemblyName": "Studio.Generated.TypedDataRow1"
+      }
+    }
+  ]
+}
