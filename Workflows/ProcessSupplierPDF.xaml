@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Activity mc:Ignorable="sap sap2010" x:Class="ProcessQueue_" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mg="clr-namespace:Microsoft.Graph;assembly=Microsoft.Graph" xmlns:p="http://schemas.uipath.com/workflow/activities/intelligentocr" xmlns:p1="http://schemas.uipath.com/workflow/activities/ocr" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:sd2="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uma="clr-namespace:UiPath.MicrosoftOffice365.Activities;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umaf="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umafe="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files.Enums;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umafm="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files.Models;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umfm="clr-namespace:UiPath.MicrosoftOffice365.Files.Models;assembly=UiPath.MicrosoftOffice365" xmlns:upap="clr-namespace:UiPath.PDF.Activities.PDF;assembly=UiPath.PDF.Activities" xmlns:upr="clr-namespace:UiPath.Platform.ResourceHandling;assembly=UiPath.Platform" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
@@ -574,7 +573,6 @@
                   </ActivityAction.Argument>
                   <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,475" sap2010:WorkflowViewState.IdRef="Sequence_55">
                     <Sequence.Variables>
-                      <Variable x:TypeArguments="x:String" Name="variable1" />
                       <Variable x:TypeArguments="umfm:O365DriveRemoteItem" Name="uploadFolder" />
                       <Variable x:TypeArguments="mg:DriveItem" Name="folderitem" />
                     </Sequence.Variables>
@@ -596,7 +594,7 @@
                 </usau:BackupSlot>
               </uma:Office365ApplicationScope.RuntimeItemFullPathBackup>
             </uma:Office365ApplicationScope>
-            <ui:AddQueueItem TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Check if uesable in confi file" DisplayName="Add Queue Item - Upload Pickup Confirmation" FolderPath="AUTO/AN/Regensburg/SCM" sap:VirtualizedContainerService.HintSize="452,260" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION_SAP" Reference="[kvpDeliveryPages.Key]">
+            <ui:AddQueueItem TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Check if uesable in confi file" DisplayName="Add Queue Item - Upload Pickup Confirmation" FolderPath="Config(&quot;OrchestratorQueueFolder&quot;).ToString" sap:VirtualizedContainerService.HintSize="452,260" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="Config(&quot;OrchestratorQueueName2&quot;).ToString" Reference="[kvpDeliveryPages.Key]">
               <ui:AddQueueItem.ItemInformation>
                 <InArgument x:TypeArguments="x:String" x:Key="DeliveryNumber">[kvpDeliveryPages.Key]</InArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="PdfPath">["https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling Container Supplier + Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/04_New_Upload/93" + kvpDeliveryPages.Key + ".pdf"]</InArgument>

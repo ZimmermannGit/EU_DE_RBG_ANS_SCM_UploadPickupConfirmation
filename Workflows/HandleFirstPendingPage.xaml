@@ -99,13 +99,13 @@
       <AssemblyReference>Microsoft.Graph.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="HandlePendingPages" sap:VirtualizedContainerService.HintSize="1195,644" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="HandlePendingPages" sap:VirtualizedContainerService.HintSize="937,644" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <If Condition="[String.IsNullOrEmpty(in_strDeliveryNumberCurrent) AndAlso&#xA;System.Text.RegularExpressions.Regex.IsMatch(&#xA;    in_strDocumentText,&#xA;    &quot;Page\s+1\s+from\s+\d+&quot;,&#xA;    System.Text.RegularExpressions.RegexOptions.IgnoreCase&#xA;)]" DisplayName="If - Check First Page Without LS" sap:VirtualizedContainerService.HintSize="452,621" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[String.IsNullOrEmpty(in_strDeliveryNumberCurrent) AndAlso&#xD;&#xA;System.Text.RegularExpressions.Regex.IsMatch(&#xD;&#xA;    in_strDocumentText,&#xD;&#xA;    &quot;(?:Page\s+1\s+(?:from|of)\s+\d+)|(?:Seite\s+1\s+von\s+\d+)&quot;,&#xD;&#xA;    System.Text.RegularExpressions.RegexOptions.IgnoreCase&#xD;&#xA;)]" DisplayName="If - Check First Page Without LS" sap:VirtualizedContainerService.HintSize="452,621" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,401" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>

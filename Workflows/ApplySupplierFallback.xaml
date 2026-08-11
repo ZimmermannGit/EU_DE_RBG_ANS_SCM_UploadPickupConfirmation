@@ -179,7 +179,7 @@
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <If Condition="[kvpPendingPage.Value = in_strSupplierName]" DisplayName="If - Same Supplier" sap:VirtualizedContainerService.HintSize="524,3021" sap2010:WorkflowViewState.IdRef="If_4">
+                  <If Condition="[kvpPendingPage.Value.Trim.ToUpper = in_strSupplierName.Trim.ToUpper]" DisplayName="If - Same Supplier" sap:VirtualizedContainerService.HintSize="524,3021" sap2010:WorkflowViewState.IdRef="If_4">
                     <If.Then>
                       <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="522,1402" sap2010:WorkflowViewState.IdRef="Sequence_9">
                         <sap:WorkflowViewStateService.ViewState>
@@ -292,7 +292,7 @@
                                 </InvokeMethod.TargetObject>
                                 <InArgument x:TypeArguments="x:Int32">[kvpPendingPage.Key]</InArgument>
                               </InvokeMethod>
-                              <ui:LogMessage DisplayName="Log Message - Previous Delivery Assignment" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Previous LS Fallback Assigned: &quot; +&#xD;&#xA;in_strLastDeliveryNumber +&#xD;&#xA;&quot; | Seite &quot; +&#xD;&#xA;kvpPendingPage.Key.ToString]" />
+                              <ui:LogMessage DisplayName="Log Message - Previous Delivery Assignment" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Previous LS Fallback Assigned: &quot; +&#xA;in_strLastDeliveryNumber +&#xA;&quot; | Seite &quot; +&#xA;kvpPendingPage.Key.ToString]" />
                               <InvokeMethod DisplayName="Invoke Method - Add Page To Remove List" sap:VirtualizedContainerService.HintSize="416,159" sap2010:WorkflowViewState.IdRef="InvokeMethod_6" MethodName="Add">
                                 <InvokeMethod.TargetObject>
                                   <InArgument x:TypeArguments="scg:List(x:Int32)">[lstPendingPagesToRemove]</InArgument>
@@ -322,7 +322,7 @@
                                 </InvokeMethod.TargetObject>
                                 <InArgument x:TypeArguments="x:Int32">[kvpPendingPage.Key]</InArgument>
                               </InvokeMethod>
-                              <ui:LogMessage DisplayName="Log Message - Previous Delivery Assignment - No.2" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Previous LS Fallback Assigned: &quot; +&#xA;in_strLastDeliveryNumber +&#xA;&quot; | Seite &quot; +&#xA;kvpPendingPage.Key.ToString]" />
+                              <ui:LogMessage DisplayName="Log Message - Previous Delivery Assignment New Entry" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Previous LS Fallback Assigned: &quot; +&#xA;in_strLastDeliveryNumber +&#xA;&quot; | Seite &quot; +&#xA;kvpPendingPage.Key.ToString]" />
                               <InvokeMethod DisplayName="Invoke Method - Add Page To Remove List" sap:VirtualizedContainerService.HintSize="416,159" sap2010:WorkflowViewState.IdRef="InvokeMethod_8" MethodName="Add">
                                 <InvokeMethod.TargetObject>
                                   <InArgument x:TypeArguments="scg:List(x:Int32)">[lstPendingPagesToRemove]</InArgument>
