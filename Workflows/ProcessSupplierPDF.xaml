@@ -594,10 +594,10 @@
                 </usau:BackupSlot>
               </uma:Office365ApplicationScope.RuntimeItemFullPathBackup>
             </uma:Office365ApplicationScope>
-            <ui:AddQueueItem TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Check if uesable in confi file" DisplayName="Add Queue Item - Upload Pickup Confirmation" FolderPath="Config(&quot;OrchestratorQueueFolder&quot;).ToString" sap:VirtualizedContainerService.HintSize="452,260" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="Config(&quot;OrchestratorQueueName2&quot;).ToString" Reference="[kvpDeliveryPages.Key]">
+            <ui:AddQueueItem TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Check if uesable in confi file" DisplayName="Add Queue Item - Upload Pickup Confirmation" FolderPath="AUTO/AN/Regensburg/SCM" sap:VirtualizedContainerService.HintSize="452,260" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="EU_DE_RBG_ANS_SCM_UploadPickupConfirmationSAP" Reference="[kvpDeliveryPages.Key]">
               <ui:AddQueueItem.ItemInformation>
                 <InArgument x:TypeArguments="x:String" x:Key="DeliveryNumber">[kvpDeliveryPages.Key]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="PdfPath">["https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling Container Supplier + Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/04_New_Upload/93" + kvpDeliveryPages.Key + ".pdf"]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="PdfPath">["https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling Container Supplier + Customer/ZZ_weitere_Themen/RPA/EU_DE_RBG_ANS_SCM_UploadPickupConfirmation/04_New_Upload/93" + kvpDeliveryPages.Key + ".pdf"]</InArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="SourceFileName">[strFileName]</InArgument>
               </ui:AddQueueItem.ItemInformation>
               <sap:WorkflowViewStateService.ViewState>
