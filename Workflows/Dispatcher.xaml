@@ -177,7 +177,7 @@
       <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence DisplayName="Download From SharePoint" sap:VirtualizedContainerService.HintSize="943,655.6566666666666" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Download From SharePoint" sap:VirtualizedContainerService.HintSize="937,3485" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="umfm:O365DriveRemoteItem" Name="DCurrentItem" />
       <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Config" />
@@ -187,15 +187,15 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="InitAllSettings - Invoke Workflow File (Framework\InitAllSettings.xaml)" sap:VirtualizedContainerService.HintSize="450,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="InitAllSettings - Invoke Workflow File (Framework\InitAllSettings.xaml)" sap:VirtualizedContainerService.HintSize="540,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">Data\Config.xlsx</InArgument>
         <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">[New String() {"Settings","Constants"}]</InArgument>
         <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">[Config]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:LogMessage DisplayName="Log Download Start" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start Download for Queue Items&quot;]" />
-    <uma:Office365ApplicationScope ApplicationSecret="{x:Null}" BrowserItemFriendlyName="{x:Null}" BrowserItemFullPath="{x:Null}" BrowserItemId="{x:Null}" BrowserParentItemId="{x:Null}" BrowserRuntimeItemFriendlyName="{x:Null}" BrowserRuntimeItemFullPath="{x:Null}" BrowserRuntimeItemId="{x:Null}" BrowserRuntimeParentItemId="{x:Null}" CertificateAsBase64="{x:Null}" CertificatePassword="{x:Null}" ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" Connector="{x:Null}" ContinueOnError="{x:Null}" ImpersonatedUserEmailAddress="{x:Null}" ManualRuntimeItemFullPath="{x:Null}" Password="{x:Null}" SecureApplicationSecret="{x:Null}" SecurePassword="{x:Null}" Timeout="{x:Null}" Username="{x:Null}" Account="uidt0706@automotive-wan.com (1)" ApplicationId="7e5fd973-0a88-4a06-bdd3-bc2bd2e31151" AuthenticationType="InteractiveToken" ConfigLocation="PropertiesPanel" DataStoreLocation="ORCHESTRATOR" DisplayName="Microsoft 365 Scope" EmailAddress="uidt0706@automotive-wan.com" Environment="Global" Folder="LC3" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="Office365ApplicationScope_3" OAuthApplication="Custom" RuntimeItemInputMode="Browse" TenantId="3bd97919-57c3-48d3-9e9a-8e4c01614a8f" UseConnectionService="False">
+    <ui:LogMessage DisplayName="Log Download Start" sap:VirtualizedContainerService.HintSize="540,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start Download for Queue Items&quot;]" />
+    <uma:Office365ApplicationScope ApplicationSecret="{x:Null}" BrowserItemFriendlyName="{x:Null}" BrowserItemFullPath="{x:Null}" BrowserItemId="{x:Null}" BrowserParentItemId="{x:Null}" BrowserRuntimeItemFriendlyName="{x:Null}" BrowserRuntimeItemFullPath="{x:Null}" BrowserRuntimeItemId="{x:Null}" BrowserRuntimeParentItemId="{x:Null}" CertificateAsBase64="{x:Null}" CertificatePassword="{x:Null}" ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" Connector="{x:Null}" ContinueOnError="{x:Null}" ImpersonatedUserEmailAddress="{x:Null}" ManualRuntimeItemFullPath="{x:Null}" Password="{x:Null}" SecureApplicationSecret="{x:Null}" SecurePassword="{x:Null}" Timeout="{x:Null}" Username="{x:Null}" Account="uidt0706@automotive-wan.com (1)" ApplicationId="7e5fd973-0a88-4a06-bdd3-bc2bd2e31151" AuthenticationType="InteractiveToken" ConfigLocation="PropertiesPanel" DataStoreLocation="ORCHESTRATOR" DisplayName="Microsoft 365 Scope" EmailAddress="uidt0706@automotive-wan.com" Environment="Global" Folder="LC3" sap:VirtualizedContainerService.HintSize="540,2944" sap2010:WorkflowViewState.IdRef="Office365ApplicationScope_3" OAuthApplication="Custom" RuntimeItemInputMode="Browse" TenantId="3bd97919-57c3-48d3-9e9a-8e4c01614a8f" UseConnectionService="False">
       <uma:Office365ApplicationScope.AuthenticationScopes>
         <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
           <InArgument x:TypeArguments="x:String">Sites.Read.All</InArgument>
@@ -206,7 +206,7 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ParentScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="538,2710" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="538,2708" sap2010:WorkflowViewState.IdRef="Sequence_7">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="responseContentTemp" />
               <Variable x:TypeArguments="x:Int32" Name="responseStatusTemp" />
@@ -219,7 +219,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <umaf:GetItem ContinueOnError="{x:Null}" DriveMetadata="{x:Null}" DriveName="{x:Null}" ItemFriendlyName="{x:Null}" ItemId="{x:Null}" SiteUrl="{x:Null}" AuthScopesInvalid="False" DisplayName="Get File or Folder" sap:VirtualizedContainerService.HintSize="504,141" sap2010:WorkflowViewState.IdRef="GetItem_1" Item="[folderItem]" ItemSelectionMode="ItemUrl" ItemUrl="https://aumovio-my.sharepoint.com/my?id=%2Fpersonal%2Fuidt0706%5Fautomotive%2Dwan%5Fcom%2FDocuments%2F03%5FControlling%20Container%20Supplier%20%2B%20Customer%2FZZ%5Fweitere%5FThemen%2FRPA%2FEU%5FDE%5FRBG%5FANS%5FSCM%5FUploadPickupConfirmation%2F01%5FNew" />
+            <umaf:GetItem ContinueOnError="{x:Null}" DriveMetadata="{x:Null}" DriveName="{x:Null}" ItemFriendlyName="{x:Null}" ItemId="{x:Null}" SiteUrl="{x:Null}" AuthScopesInvalid="False" DisplayName="Get File or Folder" sap:VirtualizedContainerService.HintSize="504,139" sap2010:WorkflowViewState.IdRef="GetItem_1" Item="[folderItem]" ItemSelectionMode="ItemUrl" ItemUrl="https://aumovio-my.sharepoint.com/my?id=%2Fpersonal%2Fuidt0706%5Fautomotive%2Dwan%5Fcom%2FDocuments%2F03%5FControlling%20Container%20Supplier%20%2B%20Customer%2FZZ%5Fweitere%5FThemen%2FRPA%2FEU%5FDE%5FRBG%5FANS%5FSCM%5FUploadPickupConfirmation%2F01%5FNew" />
             <umaf:GetFileListConnections BrowserParentItemId="{x:Null}" ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" ContinueOnError="{x:Null}" DynamicMetadataFilter="{x:Null}" Filter="{x:Null}" FreeTextFilter="{x:Null}" ItemIdBackup="{x:Reference __ReferenceID0}" ManualEntryDriveName="{x:Null}" ManualEntryItemFullPath="{x:Null}" ManualEntryItemId="{x:Null}" ManualEntryItemRelativePath="{x:Null}" ManualEntryItemUrl="{x:Null}" ManualEntrySiteUrl="{x:Null}" MetadataFilter="{x:Null}" QueryFilter="{x:Null}" SharepointLibraryItemFriendlyName="{x:Null}" SharepointListId="{x:Null}" SharepointSiteUrl="{x:Null}" SimpleSearch="{x:Null}" AuthScopesInvalid="False" BrowserDriveId="b!ezEvtoZGWUWwI34qNzAUvpN2s4EmKeJPkXVh_kTZ7lIq9lbEJy_fRqmRrfNOybMP" BrowserDriveName="OneDrive - aumovio" BrowserItemFriendlyName="01_New" BrowserItemId="017JD3NEIVNL2HHYYDFJEKXGQIYKLNFVWC" BrowserSiteUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/01_New" BrowserSpecificUrl="https://aumovio-my.sharepoint.com/personal/uidt0706_automotive-wan_com/Documents/03_Controlling%20Container%20Supplier%20+%20Customer/ZZ_weitere_Themen/RPA/AU_EU_DE_SCM_UPLOAD_PICKUP_CONFIRMATION/01_New" DisplayName="Get File or Folder List" sap:VirtualizedContainerService.HintSize="504,123" sap2010:WorkflowViewState.IdRef="GetFileListConnections_1" IncludeSubfolders="False" ItemSelectionMode="Browse" MaxResults="200" Result="[filesList]" SearchMode="UseSimple" SortOptions="Ascending" TrimDuplicates="False" UseConnectionService="False" WhatToReturn="Files" WorkingWithDocumentLibrary="False">
               <umaf:GetFileListConnections.AllColumns>
                 <x:Array Type="umsm:Office365SharepointListColumnSlim">
@@ -566,6 +566,6 @@
         </usau:BackupSlot>
       </uma:Office365ApplicationScope.RuntimeItemFullPathBackup>
     </uma:Office365ApplicationScope>
-    <ui:LogMessage DisplayName="Log Download Complete" sap:VirtualizedContainerService.HintSize="450,166" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Upload Queue Items and Move File complete&quot;]" />
+    <ui:LogMessage DisplayName="Log Download Complete" sap:VirtualizedContainerService.HintSize="540,166" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Upload Queue Items and Move File complete&quot;]" />
   </Sequence>
 </Activity>
